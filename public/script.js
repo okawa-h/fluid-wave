@@ -35,7 +35,8 @@ class FluidWaveFrame {
 
 	onResize() {
 		this.setCanvasSize();
-		this.fluidWave.update(this.canvas.width, this.canvas.width.height)
+		this.setup();
+		// this.fluidWave.update(this.canvas.width, this.canvas.width.height)
 	}
 
 	setCanvasSize() {
