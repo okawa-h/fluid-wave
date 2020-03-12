@@ -16,6 +16,7 @@ class FluidWaveFrame {
 		this.context = this.canvas.getContext('2d');
 		this.container.appendChild(this.canvas);
 
+		this.color = this.container.dataset.waveColor || '#000';
 		this.isBottom = this.container.dataset.waveBottom === 'true';
 
 		this.setCanvasSize();
@@ -25,7 +26,7 @@ class FluidWaveFrame {
 	setup() {
 		const width = this.canvas.width;
 		const height = this.canvas.height;
-		this.fluidWave = new FluidWave(width, height, VERTEX_LENGTH, WAVE_SMOOTHNESS, this.isBottom);
+		this.fluidWave = new FluidWave(width, height, VERTEX_LENGTH, WAVE_SMOOTHNESS, this.color, this.isBottom);
 	}
 
 	renderer(elapsedTime) {
@@ -46,11 +47,12 @@ class FluidWaveFrame {
 }
 
 class FluidWave {
-	constructor(width, height, pointLength, smoothness, isBottom) {
+	constructor(width, height, pointLength, smoothness, color, isBottom) {
 		this.width = width;
 		this.height = height;
 		this.pointLength = pointLength;
 		this.smoothness = smoothness;
+		this.color = color;
 		this.isBottom = isBottom;
 		this.amplitude = this.height * Utils.getRangeNumber(0.7, 0.3);
 	}
@@ -75,7 +77,7 @@ class FluidWave {
 		} else {
 			context.lineTo(this.width, this.height);
 		}
-		context.fillStyle = '#34044a';
+		context.fillStyle = this.color;
 		context.fill();
 	}
 
